@@ -30,7 +30,7 @@ num_cols = [
 ]
 
 
-models = {
+models_LR = {
     'LR_th_scl_ed_scl': {
         'model': Pipeline([
                 (
