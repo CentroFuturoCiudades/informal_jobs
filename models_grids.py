@@ -4,10 +4,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, KBinsDiscretizer, OrdinalEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from scipy.spatial.distance import hamming
 
 
 kbins_ed = [5, 6, 7, 8, 9, 10]
-
 
 cat_cols = [
     'genero',
@@ -82,7 +84,7 @@ models_LR = {
         }
     },
 
-    'LRed_cnss': {
+    'LR_ed_cnss': {
         'model': Pipeline([
                 (
                     'preprocessor',
@@ -221,6 +223,78 @@ models_GB = {
         'params': {
             'classifier__learning_rate': np.geomspace(0.01, 1, 10),
             'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+        }
+    },
+}
+
+models_SVC = {
+    'SVC_ed_scl': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        ("standard_scaler", StandardScaler(), num_cols),
+                        (
+                            "one-hot-encoder",
+                            OneHotEncoder(handle_unknown="ignore"),
+                            cat_cols_no_edad)
+                    ])
+                ),
+                (
+                    'classifier',
+                    SVC()
+                )
+             ]),
+        'params': {
+            'classifier__C': np.geomspace(1e-4, 1e4, 10),
+            'classifier__gamma': np.geomspace(1e-4, 1e4, 10)
+        }
+    },
+
+    'SVC_ed_cnss': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        (
+                            "one-hot-encoder",
+                            OneHotEncoder(handle_unknown="ignore"),
+                            cat_cols
+                        )
+                    ])
+                ),
+                (
+                    'classifier',
+                    SVC()
+                )
+             ]),
+        'params': {
+            'classifier__C': np.geomspace(1e-4, 1e4, 10),
+            'classifier__gamma': np.geomspace(1e-4, 1e4, 10)
+        }
+    },
+}
+
+models_KNN = {
+    'KNN_ed_cnss': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        (
+                            "one-hot-encoder",
+                            OneHotEncoder(handle_unknown="ignore"),
+                            cat_cols
+                        )
+                    ])
+                ),
+                (
+                    'classifier',
+                    KNeighborsClassifier(metric=hamming)
+                )
+             ]),
+        'params': {
+            'classifier__n_neighbors': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         }
     },
 }
