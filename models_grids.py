@@ -356,4 +356,79 @@ models_LR = {
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
+
+    'LR_th_no_ed_cnss': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        (
+                            "one-hot-encoder",
+                            OneHotEncoder(handle_unknown="ignore"),
+                            cat_cols
+                        )
+                    ])
+                ),
+                (
+                    'classifier',
+                    LogisticRegression(max_iter=1000, solver='liblinear')
+                )
+             ]),
+        'params': {
+            'classifier__penalty': ['l1', 'l2'],
+            'classifier__C': np.geomspace(1e-4, 1e4, 10),
+        }
+    },
+
+    'LR_th_no_ed_oh': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        (
+                            "one-hot-encoder",
+                            OneHotEncoder(handle_unknown="ignore"),
+                            cat_cols_no_edad + ['edad_num']
+                        )
+                    ])
+                ),
+                (
+                    'classifier',
+                    LogisticRegression(max_iter=1000, solver='liblinear')
+                )
+             ]),
+        'params': {
+            'classifier__penalty': ['l1', 'l2'],
+            'classifier__C': np.geomspace(1e-4, 1e4, 10),
+        }
+    },
+
+    'LR_th_no_ed_dsc': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        (
+                            "discretizer",
+                            KBinsDiscretizer(encode='onehot'),
+                            ['edad_num']
+                        ),
+                        (
+                            "one-hot-encoder",
+                            OneHotEncoder(handle_unknown="ignore"),
+                            cat_cols_no_edad
+                        )
+                    ])
+                ),
+                (
+                    'classifier',
+                    LogisticRegression(max_iter=1000, solver='liblinear')
+                )
+             ]),
+        'params': {
+            'classifier__penalty': ['l1', 'l2'],
+            'classifier__C': np.geomspace(1e-4, 1e4, 10),
+            'preprocessor__discretizer__n_bins': kbins_ed,
+        }
+    },
 }
