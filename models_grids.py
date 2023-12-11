@@ -6,6 +6,10 @@ from sklearn.pipeline import Pipeline
 from itertools import product
 
 
+kbins_th = [2, 3, 4, 5]
+kbins_ed = [5, 6, 7, 8, 9, 10]
+
+
 cat_cols = [
     'genero',
     'ocupacion',
@@ -62,7 +66,7 @@ models_LR = {
                         ("standard_scaler", StandardScaler(), ['tamaño_hogar']),
                         (
                             "discretizer",
-                            KBinsDiscretizer(encode='onehot', strategy='quantile'),
+                            KBinsDiscretizer(encode='onehot'),
                             ['edad_num']
                         ),
                         (
@@ -80,7 +84,7 @@ models_LR = {
         'params': {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
-            'preprocessor__discretizer__n_bins': [5, 6, 7, 8, 9, 10, 15, 20],
+            'preprocessor__discretizer__n_bins': kbins_ed,
         }
     },
 
@@ -140,7 +144,7 @@ models_LR = {
                         ("standard_scaler", StandardScaler(), ['edad_num']),
                         (
                             "discretizer",
-                            KBinsDiscretizer(encode='onehot', strategy='quantile'),
+                            KBinsDiscretizer(encode='onehot'),
                             ['tamaño_hogar']
                         ),
                         (
@@ -158,7 +162,7 @@ models_LR = {
         'params': {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
-            'preprocessor__discretizer__n_bins': [2, 3, 4, 5, 6],
+            'preprocessor__discretizer__n_bins': kbins_th,
         }
     },
 
@@ -169,7 +173,7 @@ models_LR = {
                     ColumnTransformer([
                         (
                             "discretizer",
-                            KBinsDiscretizer(encode='onehot', strategy='quantile'),
+                            KBinsDiscretizer(encode='onehot'),
                             num_cols
                         ),
                         (
@@ -188,8 +192,7 @@ models_LR = {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': list(
-                product([2, 3, 4, 5, 6], [5, 6, 7, 8, 9, 10, 15, 20])
-            ),
+                product(kbins_th, kbins_ed)),
         }
     },
 
@@ -200,7 +203,7 @@ models_LR = {
                     ColumnTransformer([
                         (
                             "discretizer",
-                            KBinsDiscretizer(encode='onehot', strategy='quantile'),
+                            KBinsDiscretizer(encode='onehot'),
                             ['tamaño_hogar']
                         ),
                         (
@@ -218,7 +221,7 @@ models_LR = {
         'params': {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
-            'preprocessor__discretizer__n_bins': [2, 3, 4, 5, 6],
+            'preprocessor__discretizer__n_bins': kbins_th,
         }
     },
 
@@ -229,7 +232,7 @@ models_LR = {
                     ColumnTransformer([
                         (
                             "discretizer",
-                            KBinsDiscretizer(encode='onehot', strategy='quantile'),
+                            KBinsDiscretizer(encode='onehot'),
                             ['tamaño_hogar']
                         ),
                         (
@@ -247,7 +250,7 @@ models_LR = {
         'params': {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
-            'preprocessor__discretizer__n_bins': [2, 3, 4, 5, 6],
+            'preprocessor__discretizer__n_bins': kbins_th,
         }
     },
 
@@ -286,7 +289,7 @@ models_LR = {
                     ColumnTransformer([
                         (
                             "discretizer",
-                            KBinsDiscretizer(encode='onehot', strategy='quantile'),
+                            KBinsDiscretizer(encode='onehot'),
                             ['edad_num']
                         ),
                         (
@@ -304,7 +307,7 @@ models_LR = {
         'params': {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
-            'preprocessor__discretizer__n_bins': [5, 6, 7, 8, 9, 10, 15, 20],
+            'preprocessor__discretizer__n_bins': kbins_ed,
         }
     },
 
