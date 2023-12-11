@@ -50,11 +50,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10)
         }
     },
@@ -79,11 +78,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_ed,
         }
@@ -104,11 +102,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -128,11 +125,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -157,11 +153,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_th,
         }
@@ -186,11 +181,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': list(
                 product(kbins_th, kbins_ed)),
@@ -216,11 +210,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_th,
         }
@@ -245,11 +238,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_th,
         }
@@ -274,11 +266,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -302,11 +293,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_ed,
         }
@@ -326,11 +316,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -349,11 +338,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -372,11 +360,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -395,11 +382,10 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
         }
     },
@@ -423,17 +409,17 @@ models_LR = {
                 ),
                 (
                     'classifier',
-                    LogisticRegression(max_iter=1000, solver='liblinear')
+                    LogisticRegression(max_iter=1000)
                 )
              ]),
         'params': {
-            'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_ed,
         }
     },
 }
 
+max_leaf_nodes_grid = [5, 7, 10, 25, 50, 65, 85, 100, 250, 500]
 
 models_RF = {
     'RF_th_no_ed_cnss': {
@@ -457,9 +443,8 @@ models_RF = {
             )
         ]),
         'params': {
-            'classifier__n_estimators': [100],
             'classifier__max_features': [1, 2, 3, 4, 5, 6],
-            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+            'classifier__max_leaf_nodes': max_leaf_nodes_grid,
         }
     },
 
@@ -485,9 +470,8 @@ models_RF = {
             )
         ]),
         'params': {
-            'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
-            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+            'classifier__max_leaf_nodes': max_leaf_nodes_grid,
         }
     },
 
@@ -513,9 +497,8 @@ models_RF = {
             )
         ]),
         'params': {
-            'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6],
-            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+            'classifier__max_leaf_nodes': max_leaf_nodes_grid,
         }
     },
 
@@ -541,9 +524,8 @@ models_RF = {
             )
         ]),
         'params': {
-            'classifier__n_estimators': [100],
             'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
-            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+            'classifier__max_leaf_nodes': max_leaf_nodes_grid,
         }
     },
 }
