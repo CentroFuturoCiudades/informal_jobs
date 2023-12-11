@@ -282,10 +282,13 @@ models_KNN = {
                     'preprocessor',
                     ColumnTransformer([
                         (
-                            "one-hot-encoder",
-                            OneHotEncoder(handle_unknown="ignore"),
-                            cat_cols
-                        )
+                            "od_encoder",
+                            OrdinalEncoder(
+                                handle_unknown='use_encoded_value',
+                                unknown_value=-1
+                            ),
+                            cat_cols_no_edad
+                        ),
                     ])
                 ),
                 (
