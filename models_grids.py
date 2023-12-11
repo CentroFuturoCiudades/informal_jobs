@@ -4,7 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, KBinsDiscretizer, OrdinalEncoder
 from sklearn.pipeline import Pipeline
 from itertools import product
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier
 
 
 kbins_th = [2, 3, 4]
@@ -438,116 +438,237 @@ models_LR = {
 models_RF = {
     'RF_th_no_ed_cnss': {
         'model': Pipeline([
-                (
-                    'preprocessor',
-                    ColumnTransformer([
-                        (
-                            "od_encoder",
-                            OrdinalEncoder(
-                                handle_unknown='use_encoded_value',
-                                unknown_value=-1
-                            ),
-                            cat_cols
-                        )
-                    ])
-                ),
-                (
-                    'classifier',
-                    RandomForestClassifier()
-                )
-             ]),
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
+                        ),
+                        cat_cols
+                    )
+                ])
+            ),
+            (
+                'classifier',
+                RandomForestClassifier()
+            )
+        ]),
         'params': {
-            'classifier__n_estimators': [100, 200],
+            'classifier__n_estimators': [100],
             'classifier__max_features': [1, 2, 3, 4, 5, 6],
-            'classifier__max_leaf_nodes': [10, 100, 1000, None],
-            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
         }
     },
 
     'RF_th_si_ed_cnss': {
         'model': Pipeline([
-                (
-                    'preprocessor',
-                    ColumnTransformer([
-                        (
-                            "od_encoder",
-                            OrdinalEncoder(
-                                handle_unknown='use_encoded_value',
-                                unknown_value=-1
-                            ),
-                            cat_cols
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
                         ),
-                        ('passthrough', 'passthrough', ['tamaño_hogar'])
-                    ])
-                ),
-                (
-                    'classifier',
-                    RandomForestClassifier()
-                )
-             ]),
+                        cat_cols
+                    ),
+                    ('passthrough', 'passthrough', ['tamaño_hogar'])
+                ])
+            ),
+            (
+                'classifier',
+                RandomForestClassifier()
+            )
+        ]),
         'params': {
             'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
-            'classifier__max_leaf_nodes': [10, 100, 1000, None],
-            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
         }
     },
 
     'RF_th_no_ed_num': {
         'model': Pipeline([
-                (
-                    'preprocessor',
-                    ColumnTransformer([
-                        (
-                            "od_encoder",
-                            OrdinalEncoder(
-                                handle_unknown='use_encoded_value',
-                                unknown_value=-1
-                            ),
-                            cat_cols_no_edad
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
                         ),
-                        ('passthrough', 'passthrough', ['edad_num'])
-                    ])
-                ),
-                (
-                    'classifier',
-                    RandomForestClassifier()
-                )
-             ]),
+                        cat_cols_no_edad
+                    ),
+                    ('passthrough', 'passthrough', ['edad_num'])
+                ])
+            ),
+            (
+                'classifier',
+                RandomForestClassifier()
+            )
+        ]),
         'params': {
             'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6],
-            'classifier__max_leaf_nodes': [10, 100, 1000, None],
-            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
         }
     },
 
     'RF_th_si_ed_num': {
         'model': Pipeline([
-                (
-                    'preprocessor',
-                    ColumnTransformer([
-                        (
-                            "od_encoder",
-                            OrdinalEncoder(
-                                handle_unknown='use_encoded_value',
-                                unknown_value=-1
-                            ),
-                            cat_cols_no_edad
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
                         ),
-                        ('passthrough', 'passthrough', ['edad_num', 'tamaño_hogar'])
-                    ])
-                ),
-                (
-                    'classifier',
-                    RandomForestClassifier()
-                )
-             ]),
+                        cat_cols_no_edad
+                    ),
+                    ('passthrough', 'passthrough', ['edad_num', 'tamaño_hogar'])
+                ])
+            ),
+            (
+                'classifier',
+                RandomForestClassifier()
+            )
+        ]),
         'params': {
-            'classifier__n_estimators': [100, 200],
+            'classifier__n_estimators': [100],
             'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
-            'classifier__max_leaf_nodes': [10, 100, 1000, None],
-            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+        }
+    },
+}
+
+models_GB = {
+    'GB_th_no_ed_cnss': {
+        'model': Pipeline([
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
+                        ),
+                        cat_cols
+                    )
+                ])
+            ),
+            (
+                'classifier',
+                HistGradientBoostingClassifier(
+                    max_iter=1000,
+                    early_stopping=True,
+                    random_state=0
+                )
+            )
+        ]),
+        'params': {
+            'classifier__learning_rate': np.geomspace(0.01, 1, 10),
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+        }
+    },
+
+    'GB_th_si_ed_cnss': {
+        'model': Pipeline([
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
+                        ),
+                        cat_cols
+                    ),
+                    ('passthrough', 'passthrough', ['tamaño_hogar'])
+                ])
+            ),
+            (
+                'classifier',
+                HistGradientBoostingClassifier(
+                    max_iter=1000,
+                    early_stopping=True,
+                    random_state=0
+                )
+            )
+        ]),
+        'params': {
+            'classifier__learning_rate': np.geomspace(0.01, 1, 10),
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+        }
+    },
+
+    'GB_th_no_ed_num': {
+        'model': Pipeline([
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
+                        ),
+                        cat_cols_no_edad
+                    ),
+                    ('passthrough', 'passthrough', ['edad_num'])
+                ])
+            ),
+            (
+                'classifier',
+                HistGradientBoostingClassifier(
+                    max_iter=1000,
+                    early_stopping=True,
+                    random_state=0
+                )
+            )
+        ]),
+        'params': {
+            'classifier__learning_rate': np.geomspace(0.01, 1, 10),
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+        }
+    },
+
+    'GB_th_si_ed_num': {
+        'model': Pipeline([
+            (
+                'preprocessor',
+                ColumnTransformer([
+                    (
+                        "od_encoder",
+                        OrdinalEncoder(
+                            handle_unknown='use_encoded_value',
+                            unknown_value=-1
+                        ),
+                        cat_cols_no_edad
+                    ),
+                    ('passthrough', 'passthrough', ['edad_num', 'tamaño_hogar'])
+                ])
+            ),
+            (
+                'classifier',
+                HistGradientBoostingClassifier(
+                    max_iter=1000,
+                    early_stopping=True,
+                    random_state=0
+                )
+            )
+        ]),
+        'params': {
+            'classifier__learning_rate': np.geomspace(0.01, 1, 10),
+            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
         }
     },
 }
