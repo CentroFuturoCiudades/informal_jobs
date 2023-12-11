@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler, OneHotEncoder, KBinsDiscretizer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, KBinsDiscretizer, OrdinalEncoder
 from sklearn.pipeline import Pipeline
 from itertools import product
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
@@ -441,8 +441,15 @@ models_RF = {
                 (
                     'preprocessor',
                     ColumnTransformer([
-                        ("drop", "drop", ['edad_num', 'tamaño_hogar'])
-                    ], remainder='passthrough')
+                        (
+                            "od_encoder",
+                            OrdinalEncoder(
+                                handle_unknown='use_encoded_value',
+                                unknown_value=-1
+                            ),
+                            cat_cols
+                        )
+                    ])
                 ),
                 (
                     'classifier',
@@ -462,8 +469,16 @@ models_RF = {
                 (
                     'preprocessor',
                     ColumnTransformer([
-                        ("drop", "drop", ['edad_num'])
-                    ], remainder='passthrough')
+                        (
+                            "od_encoder",
+                            OrdinalEncoder(
+                                handle_unknown='use_encoded_value',
+                                unknown_value=-1
+                            ),
+                            cat_cols
+                        ),
+                        ('passthrough', 'passthrough', ['tamaño_hogar'])
+                    ])
                 ),
                 (
                     'classifier',
@@ -483,8 +498,16 @@ models_RF = {
                 (
                     'preprocessor',
                     ColumnTransformer([
-                        ("drop", "drop", ['edad_cat', 'tamaño_hogar'])
-                    ], remainder='passthrough')
+                        (
+                            "od_encoder",
+                            OrdinalEncoder(
+                                handle_unknown='use_encoded_value',
+                                unknown_value=-1
+                            ),
+                            cat_cols_no_edad
+                        ),
+                        ('passthrough', 'passthrough', ['edad_num'])
+                    ])
                 ),
                 (
                     'classifier',
@@ -504,8 +527,16 @@ models_RF = {
                 (
                     'preprocessor',
                     ColumnTransformer([
-                        ("drop", "drop", ['edad_cat'])
-                    ], remainder='passthrough')
+                        (
+                            "od_encoder",
+                            OrdinalEncoder(
+                                handle_unknown='use_encoded_value',
+                                unknown_value=-1
+                            ),
+                            cat_cols_no_edad
+                        ),
+                        ('passthrough', 'passthrough', ['edad_num', 'tamaño_hogar'])
+                    ])
                 ),
                 (
                     'classifier',
