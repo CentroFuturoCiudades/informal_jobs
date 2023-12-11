@@ -4,6 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, KBinsDiscretizer
 from sklearn.pipeline import Pipeline
 from itertools import product
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
 
 kbins_th = [2, 3, 4]
@@ -429,6 +430,93 @@ models_LR = {
             'classifier__penalty': ['l1', 'l2'],
             'classifier__C': np.geomspace(1e-4, 1e4, 10),
             'preprocessor__discretizer__n_bins': kbins_ed,
+        }
+    },
+}
+
+
+models_RF = {
+    'RF_th_no_ed_cnss': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        ("drop", "drop", ['edad_num', 'tamaño_hogar'])
+                    ], remainder='passthrough')
+                ),
+                (
+                    'classifier',
+                    RandomForestClassifier()
+                )
+             ]),
+        'params': {
+            'classifier__n_estimators': ['100', '200'],
+            'classifier__max_features': [1, 2, 3, 4, 5, 6],
+            'classifier__max_leaf_nodes': [10, 100, 1000, None],
+            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+        }
+    },
+
+    'RF_th_si_ed_cnss': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        ("drop", "drop", ['edad_num'])
+                    ], remainder='passthrough')
+                ),
+                (
+                    'classifier',
+                    RandomForestClassifier()
+                )
+             ]),
+        'params': {
+            'classifier__n_estimators': ['100', '200'],
+            'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
+            'classifier__max_leaf_nodes': [10, 100, 1000, None],
+            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+        }
+    },
+
+    'RF_th_no_ed_num': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        ("drop", "drop", ['edad_cat', 'tamaño_hogar'])
+                    ], remainder='passthrough')
+                ),
+                (
+                    'classifier',
+                    RandomForestClassifier()
+                )
+             ]),
+        'params': {
+            'classifier__n_estimators': ['100', '200'],
+            'classifier__max_features': [1, 2, 3, 4, 5, 6],
+            'classifier__max_leaf_nodes': [10, 100, 1000, None],
+            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
+        }
+    },
+
+    'RF_th_si_ed_num': {
+        'model': Pipeline([
+                (
+                    'preprocessor',
+                    ColumnTransformer([
+                        ("drop", "drop", ['edad_cat'])
+                    ], remainder='passthrough')
+                ),
+                (
+                    'classifier',
+                    RandomForestClassifier()
+                )
+             ]),
+        'params': {
+            'classifier__n_estimators': ['100', '200'],
+            'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
+            'classifier__max_leaf_nodes': [10, 100, 1000, None],
+            'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
         }
     },
 }
