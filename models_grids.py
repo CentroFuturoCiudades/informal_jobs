@@ -450,7 +450,7 @@ models_RF = {
                 )
              ]),
         'params': {
-            'classifier__n_estimators': ['100', '200'],
+            'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6],
             'classifier__max_leaf_nodes': [10, 100, 1000, None],
             'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
@@ -471,7 +471,7 @@ models_RF = {
                 )
              ]),
         'params': {
-            'classifier__n_estimators': ['100', '200'],
+            'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
             'classifier__max_leaf_nodes': [10, 100, 1000, None],
             'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
@@ -492,7 +492,7 @@ models_RF = {
                 )
              ]),
         'params': {
-            'classifier__n_estimators': ['100', '200'],
+            'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6],
             'classifier__max_leaf_nodes': [10, 100, 1000, None],
             'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
@@ -513,7 +513,7 @@ models_RF = {
                 )
              ]),
         'params': {
-            'classifier__n_estimators': ['100', '200'],
+            'classifier__n_estimators': [100, 200],
             'classifier__max_features': [1, 2, 3, 4, 5, 6, 7],
             'classifier__max_leaf_nodes': [10, 100, 1000, None],
             'classifier__min_samples_leaf': [1, 2, 5, 10, 20, 50, 100],
