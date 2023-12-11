@@ -6,7 +6,7 @@ from sklearn.pipeline import Pipeline
 from itertools import product
 
 
-kbins_th = [2, 3, 4, 5]
+kbins_th = [2, 3, 4]
 kbins_ed = [5, 6, 7, 8, 9, 10]
 
 
