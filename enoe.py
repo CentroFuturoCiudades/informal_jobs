@@ -18,7 +18,8 @@ def load_enoe(enoe_path='enoe_juntado4t19.csv'):
             (slice(None), 19),
             [
                 'SEX', 'POS_OCU', 'SCIAN', 'EDA',
-                'CS_P13_1', 'EMP_PPAL', 'MUN', 'tamaño_hogar'
+                'CS_P13_1', 'EMP_PPAL', 'MUN',
+                # 'tamaño_hogar'
             ]
         ]
     )
