@@ -191,7 +191,7 @@ models_GB = {
         ]),
         'params': {
             'classifier__learning_rate': np.geomspace(0.01, 1, 10),
-            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+            'classifier__max_leaf_nodes': max_leaf_nodes_grid,
         }
     },
 
@@ -222,7 +222,7 @@ models_GB = {
         ]),
         'params': {
             'classifier__learning_rate': np.geomspace(0.01, 1, 10),
-            'classifier__max_leaf_nodes': [2, 5, 10, 20, 50, 100, 500, 1000, None],
+            'classifier__max_leaf_nodes': max_leaf_nodes_grid,
         }
     },
 }
